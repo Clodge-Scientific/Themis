@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Index", "src\Themis.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Index.Tests", "test\Themis.Index.Tests\Themis.Index.Tests.csproj", "{7368F089-D986-434E-803B-940BD527562E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Las", "src\Themis.Las\Themis.Las.csproj", "{A43792E8-CD63-4008-9CC1-230B834658A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Las.Tests", "test\Themis.Las.Tests\Themis.Las.Tests.csproj", "{28BC2F02-52F6-427A-A132-3D2645E14C98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{7368F089-D986-434E-803B-940BD527562E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7368F089-D986-434E-803B-940BD527562E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7368F089-D986-434E-803B-940BD527562E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A43792E8-CD63-4008-9CC1-230B834658A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A43792E8-CD63-4008-9CC1-230B834658A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A43792E8-CD63-4008-9CC1-230B834658A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A43792E8-CD63-4008-9CC1-230B834658A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28BC2F02-52F6-427A-A132-3D2645E14C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28BC2F02-52F6-427A-A132-3D2645E14C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28BC2F02-52F6-427A-A132-3D2645E14C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28BC2F02-52F6-427A-A132-3D2645E14C98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
