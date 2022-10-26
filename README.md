@@ -5,6 +5,7 @@
 - [Components](#components)
     - [Themis.Geometry](#themisgeometry)
     - [Themis.Index](#themisindex)
+    - [Themis.Las](#themislas)
 
 ## Overview
 *Themis* is intended to help enforce a minutia of order upon the chaos of geospatial software development by delivering hardened & efficient components that can be reliably connected to perform variable workloads.
@@ -17,10 +18,16 @@ The concrete geometric implementations and search trees themselves are intended 
 
 **Themis.Geometry** is responsible for the core geometric object representations such as `Triangles` or `LineSegments` that are used and abused throughout the Themis ecosystem.
 
-See [Themis.Geometry](src/Themis.Geometry)
+See [Themis.Geometry](src/Themis.Geometry/)
 
 ## Themis.Index
 
 **Themis.Index** is responsible for exposing spatial indexing APIs such as `KdTrees` and `QuadTrees` that can be used to index and query various spatial datasets with maximum efficiency.
 
 See [Themis.Index](src/Themis.Index/)
+
+## Themis.Las
+
+**Themis.Las** is responsible for reading, editing, and writing ASPRS LAS files that are available on your local drive volume.  There are future plans to abstract the file system such that it will work cloud natively.
+
+See [Themis.Las](src/Themis.Las/)
