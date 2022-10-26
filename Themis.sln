@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Themis.Geometry", "src\Them
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Themis.Geometry.Tests", "test\Themis.Geometry.Tests\Themis.Geometry.Tests.csproj", "{2A13EA2C-9E30-4FFD-95D7-8CB052AB30EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Index", "src\Themis.Index\Themis.Index.csproj", "{12928FB2-6D6F-4469-A7B1-FCD522E4CEF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Index.Tests", "test\Themis.Index.Tests\Themis.Index.Tests.csproj", "{7368F089-D986-434E-803B-940BD527562E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{2A13EA2C-9E30-4FFD-95D7-8CB052AB30EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A13EA2C-9E30-4FFD-95D7-8CB052AB30EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A13EA2C-9E30-4FFD-95D7-8CB052AB30EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12928FB2-6D6F-4469-A7B1-FCD522E4CEF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12928FB2-6D6F-4469-A7B1-FCD522E4CEF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12928FB2-6D6F-4469-A7B1-FCD522E4CEF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12928FB2-6D6F-4469-A7B1-FCD522E4CEF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7368F089-D986-434E-803B-940BD527562E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7368F089-D986-434E-803B-940BD527562E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7368F089-D986-434E-803B-940BD527562E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7368F089-D986-434E-803B-940BD527562E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

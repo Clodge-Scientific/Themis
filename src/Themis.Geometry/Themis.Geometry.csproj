@@ -28,4 +28,8 @@
     <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Index\" />
+  </ItemGroup>
+
 </Project>
