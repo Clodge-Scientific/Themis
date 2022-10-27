@@ -4,28 +4,28 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/gclodge/Themis.Geometry</RepositoryUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/gclodge/Themis</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2022.04.01.01</AssemblyVersion>
-    <FileVersion>2022.04.01.01</FileVersion>
-    <Version>2022.04.01</Version>
+    <AssemblyVersion>2022.10.27.0</AssemblyVersion>
+    <FileVersion>2022.10.27.0</FileVersion>
+    <Version>2022.10.27</Version>
     <Authors>Graham Clodge</Authors>
     <PackageTags>geospatial,geometry</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>Simple &amp; efficient .NET6 implementations of common geometries and spatial indexing algorithms </Description>
+    <Description>.NET implementations of common geometric entities such as triangles and line segments. </Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

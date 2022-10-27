@@ -1,6 +1,5 @@
 ﻿using Themis.Geometry.Lines;
 using Themis.Geometry.Boundary;
-using Themis.Geometry.Triangles.Interfaces;
 
 using MathNet.Numerics.LinearAlgebra;
 
@@ -20,7 +19,7 @@ namespace Themis.Geometry.Triangles
         public double D => Normal.DotProduct(Vertices.First());
         public Vector<double> Normal => GetNormal(Vertices);
 
-        public BoundingBox Envelope { get; protected set; }
+        public IBoundingBox Envelope { get; protected set; }
 
         public IList<LineSegment> Edges { get; protected set; }
         public IList<Vector<double>> Vertices { get; protected set; }
@@ -35,7 +34,7 @@ namespace Themis.Geometry.Triangles
         }
 
         #region Constructor Helpers
-        static BoundingBox GenerateBoundingBox(IList<Vector<double>> verts)
+        static IBoundingBox GenerateBoundingBox(IList<Vector<double>> verts)
         {
             double[] x = verts.Select(v => v[0]).ToArray();
             double[] y = verts.Select(v => v[1]).ToArray();

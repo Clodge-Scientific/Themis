@@ -96,6 +96,8 @@ public class AsyncStreamHandler : IStreamHandler, IDisposable
         T result = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
         handle.Free();
 
+        if (result is null) throw new InvalidOperationException($"Failed to read instance of type {typeof(T)} from stream.");
+
         //< Get the frig outta here with our object, m'lord(s)
         return result;
     }

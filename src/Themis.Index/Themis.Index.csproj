@@ -4,10 +4,27 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>2022.10.27</Version>
+    <Authors>Graham Clodge</Authors>
+    <Description>.NET implementations of common spatial indexing structures such as binary space partioning trees. </Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/gclodge/Themis</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>geospatial,kdtree,quadtree,spatial indexing</PackageTags>
+    <FileVersion>2022.10.27.0</FileVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Themis.Geometry\Themis.Geometry.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

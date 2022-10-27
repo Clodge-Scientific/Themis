@@ -1,4 +1,4 @@
-﻿using Themis.Geometry.Boundary.Interfaces;
+﻿using Themis.Geometry.Boundary;
 
 namespace Themis.Index.QuadTree;
 
