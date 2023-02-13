@@ -37,6 +37,26 @@ public class LineSegment : ILineSegment, IEquatable<LineSegment>
         return BoundingBox.From(x.Min(), y.Min(), x.Max(), y.Max());
     }
 
+    public static LineSegment GenerateOrdered(ILineSegment line)
+    {
+        return GenerateOrdered(line.A, line.B);
+    }
+
+    public static LineSegment GenerateOrdered(Vector<double> a, Vector<double> b)
+    {
+        if (a[0] < b[0])
+            return new LineSegment(a, b);
+        else if (a[0] > b[0])
+            return new LineSegment(b, a);
+        else
+        {
+            //< X-coordinates are equal, order by Y
+            if (a[1] < b[1]) return new LineSegment(a, b);
+            
+            return new LineSegment(b, a);
+        }
+    }
+
     #region ILineSegment Methods
     public double GetStation(Vector<double> v)
     {
