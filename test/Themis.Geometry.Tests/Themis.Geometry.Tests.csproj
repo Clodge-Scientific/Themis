@@ -23,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Themis.Geometry\Themis.Geometry.csproj" />
+    <Folder Include="Index\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Index\" />
+    <ProjectReference Include="..\..\src\Libraries\Themis.Geometry\Themis.Geometry.csproj" />
   </ItemGroup>
 
 </Project>

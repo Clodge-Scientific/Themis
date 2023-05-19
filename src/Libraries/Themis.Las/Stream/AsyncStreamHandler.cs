@@ -2,6 +2,9 @@
 
 namespace Themis.Las.Stream;
 
+//< TODO :: Refactor this
+//< - Remove regions, consider more abstraction
+
 public class AsyncStreamHandler : IStreamHandler, IDisposable
 {
     #region Public Fields
@@ -16,11 +19,11 @@ public class AsyncStreamHandler : IStreamHandler, IDisposable
     public uint BufferCount { get; private set; }
     public uint BufferSize { get; private set; }
 
-    public Type PointType { get; private set; }
+    public Type PointType { get; private set; } = null!;
 
     public bool EOF => PointsReturned >= Header.PointCount;
 
-    public ILasHeader Header { get; private set; } = null;
+    public ILasHeader Header { get; private set; } = null!;
     public IList<LasVariableLengthRecord> VLRs { get; private set; } = new List<LasVariableLengthRecord>();
     #endregion
 
@@ -28,15 +31,15 @@ public class AsyncStreamHandler : IStreamHandler, IDisposable
     private readonly StreamReader _StreamReader;
     private readonly BinaryReader _BinaryReader;
 
-    private Thread _ReaderThread;
+    private Thread _ReaderThread = null!;
     private readonly AutoResetEvent _NeedDataEvent = new(false);
     private readonly AutoResetEvent _DataReadyEvent = new(false);
 
-    private IStreamBuffer _A;
-    private IStreamBuffer _B;
-    private IStreamBuffer _Active;
+    private IStreamBuffer _A = null!;
+    private IStreamBuffer _B = null!;
+    private IStreamBuffer _Active = null!;
 
-    private byte[] _Buffer;
+    private byte[] _Buffer = null!;
 
     private bool _Disposing;
     private bool _Disposed;

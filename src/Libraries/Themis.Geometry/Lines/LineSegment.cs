@@ -1,7 +1,5 @@
 ﻿using Themis.Geometry.Boundary;
 
-using MathNet.Numerics.LinearAlgebra;
-
 namespace Themis.Geometry.Lines;
 
 public class LineSegment : ILineSegment, IEquatable<LineSegment>

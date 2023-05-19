@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Themis.Index\Themis.Index.csproj" />
+    <ProjectReference Include="..\..\src\Libraries\Themis.Index\Themis.Index.csproj" />
   </ItemGroup>
 
 </Project>

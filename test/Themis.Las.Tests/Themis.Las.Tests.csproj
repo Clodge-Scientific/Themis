@@ -24,11 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Themis.Las\Themis.Las.csproj" />
+    <Folder Include="Time\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Time\" />
+    <ProjectReference Include="..\..\src\Libraries\Themis.Las\Themis.Las.csproj" />
   </ItemGroup>
 
 </Project>
