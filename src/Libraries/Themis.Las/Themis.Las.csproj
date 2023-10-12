@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -9,7 +9,7 @@
     <Authors>Graham Clodge</Authors>
     <Description>.NET implementation of ASPRS LAS file reading, writing, and editing</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/gclodge/Themis</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Clodge-Scientific/Themis/tree/main</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>geospatial,las</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

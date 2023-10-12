@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,7 +8,7 @@
     <Authors>Graham Clodge</Authors>
     <Description>.NET implementations of common spatial indexing structures such as binary space partioning trees. </Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/gclodge/Themis</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Clodge-Scientific/Themis/tree/main</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>geospatial,kdtree,quadtree,spatial indexing</PackageTags>
     <FileVersion>2023.10.12.0</FileVersion>
