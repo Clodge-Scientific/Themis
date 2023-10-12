@@ -24,14 +24,10 @@ public class LasReader : ILasReader
     }
 
     public LasPoint GetNextPoint()
-    {
-        return _Stream.GetNextPoint();
-    }
+        => _Stream.GetNextPoint();
 
     public void GetNextPoint(ref LasPoint lpt)
-    {
-        _Stream.GetNextPoint(ref lpt);
-    }
+        => _Stream.GetNextPoint(ref lpt);
 
     #region IDisposable
     protected virtual void Dispose(bool disposing)

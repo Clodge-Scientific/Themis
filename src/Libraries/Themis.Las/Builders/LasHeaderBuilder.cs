@@ -27,39 +27,46 @@ public class LasHeaderBuilder : ILasHeaderBuilder
 
         return SetMinima(minima.ElementAt(0), minima.ElementAt(1), minima.ElementAt(2));
     }
+
     public ILasHeaderBuilder SetMinima(double minX, double minY, double minZ)
     {
         header.SetMinima(minX, minY, minZ);
         return this;
     }
+
     public ILasHeaderBuilder SetMaxima(IEnumerable<double> maxima)
     {
         if (maxima.Count() < 3) throw new ArgumentException($"Maxima must be at least 3D");
 
         return SetMaxima(maxima.ElementAt(0), maxima.ElementAt(1), maxima.ElementAt(2));
     }
+
     public ILasHeaderBuilder SetMaxima(double maxX, double maxY, double maxZ)
     {
         header.SetMaxima(maxX, maxY, maxZ);
         return this;
     }
+
     public ILasHeaderBuilder SetScale(IEnumerable<double> scale)
     {
         if (scale.Count() < 3) throw new ArgumentException($"Scale must be at least 3D");
 
         return SetScale(scale.ElementAt(0), scale.ElementAt(1), scale.ElementAt(2));
     }
+
     public ILasHeaderBuilder SetScale(double scaleX, double scaleY, double scaleZ)
     {
         header.SetScale(scaleX, scaleY, scaleZ);
         return this;
     }
+
     public ILasHeaderBuilder SetOrigin(IEnumerable<double> origin)
     {
         if (origin.Count() < 3) throw new ArgumentException($"Scale must be at least 3D");
 
         return SetOrigin(origin.ElementAt(0), origin.ElementAt(1), origin.ElementAt(2));
     }
+
     public ILasHeaderBuilder SetOrigin(double originX, double originY, double originZ)
     {
         header.SetOrigin(originX, originY, originZ);
@@ -93,11 +100,13 @@ public class LasHeaderBuilder : ILasHeaderBuilder
         header.SetCreationDate(year, doy);
         return this;
     }
+
     public ILasHeaderBuilder SetCreationYear(ushort year)
     {
         header.SetCreationDate(year, header.CreationDOY);
         return this;
     }
+
     public ILasHeaderBuilder SetCreationDayOfYear(ushort dayOfYear)
     {
         header.SetCreationDate(header.CreationYear, dayOfYear);

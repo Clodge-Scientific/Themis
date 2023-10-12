@@ -144,24 +144,16 @@ public static class LineSegmentIntersection
 public static class LineSegmentExtensions
 {
     public static bool Intersects(this ILineSegment A, ILineSegment B, int precision = 5)
-    {
-        return LineSegmentIntersection.Find2D(A, B, precision) != null;
-    }
+        => LineSegmentIntersection.Find2D(A, B, precision) != null;
 
     public static Vector<double>? Intersection(this ILineSegment A, ILineSegment B, int precision = 5)
-    {
-        return LineSegmentIntersection.Find2D(A, B, precision);
-    }
+        => LineSegmentIntersection.Find2D(A, B, precision);
 
     internal static bool Intersects(this ILineSegment A, ILineSegment B, double tolerance)
-    {
-        return LineSegmentIntersection.Find2D(A, B, tolerance) != null;
-    }
+        => LineSegmentIntersection.Find2D(A, B, tolerance) != null;
 
     internal static Vector<double>? Intersection(this ILineSegment A, ILineSegment B, double tolerance)
-    {
-        return LineSegmentIntersection.Find2D(A, B, tolerance);
-    }
+        => LineSegmentIntersection.Find2D(A, B, tolerance);
 
     internal static bool IsGreaterThanOrEqual(this double a, double b, double tolerance)
     {
@@ -172,7 +164,6 @@ public static class LineSegmentExtensions
     internal static bool IsLessThanOrEqual(this double a, double b, double tolerance)
     {
         var result = a - b;
-
         return result < -tolerance || Math.Abs(result) < tolerance;
     }
 }
