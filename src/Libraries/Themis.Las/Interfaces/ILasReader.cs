@@ -14,6 +14,10 @@ public interface ILasReader : IDisposable
     /// The ILasHeader as recorded within the underlying LAS file
     /// </summary>
     ILasHeader Header { get; }
+    /// <summary>
+    /// Get all available <see cref="LasVariableLengthRecord"/> entities from the underlying LAS file
+    /// </summary>
+    IList<LasVariableLengthRecord> VLRs { get; }
 
     /// <summary>
     /// Create a new LasPoint instance of the 'next' point to be scanned in the LAS file

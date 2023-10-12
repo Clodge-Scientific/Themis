@@ -1,4 +1,4 @@
-﻿namespace Themis.Index.KdTree.TypeMath;
+﻿namespace Themis.Index.KdTree.Interfaces;
 
 public interface ITypeMath<T>
 {

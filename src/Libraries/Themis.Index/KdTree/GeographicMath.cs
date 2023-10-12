@@ -1,6 +1,6 @@
 ﻿using Themis.Geometry;
 
-namespace Themis.Index.KdTree.TypeMath;
+namespace Themis.Index.KdTree;
 
 public class GeographicMath : DoubleMath
 {

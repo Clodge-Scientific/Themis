@@ -6,7 +6,7 @@ namespace Themis.Las;
 
 public static class Extensions
 {
-    public static T[] PadRight<T>(this T[] arr, int length, T fallback = default(T))
+    public static T[] PadRight<T>(this T[] arr, int length, T fallback)
     {
         T[] ret = new T[length];
         foreach (int i in Enumerable.Range(0, length))

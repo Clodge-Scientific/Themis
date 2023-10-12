@@ -1,6 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
+﻿using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
+using Themis.Las.Structs;
 
 namespace Themis.Las;
 
@@ -8,84 +8,162 @@ public class LasWriter : ILasWriter
 {
     private bool disposedValue;
 
-    private readonly StreamWriter _StreamWriter;
-    private readonly BinaryWriter _BinaryWriter;
+    private readonly StreamWriter _streamWriter;
+    private readonly BinaryWriter _binaryWriter;
 
-    public long Position => _BinaryWriter.BaseStream.Position;
+    public ILasHeader Header { get; private set; }
+    public IEnumerable<LasVariableLengthRecord> VLRs { get; private set; }
 
-    private ILasHeader _header;
-    public ILasHeader Header
+    public string OutputFile { get; private set; } = string.Empty;
+
+    public ulong PointsWritten { get; private set; } = 0;
+    public long Position => _binaryWriter.BaseStream.Position;
+
+    public LasWriter(string lasFile, ILasHeader header, IEnumerable<LasVariableLengthRecord>? vlrs = null)
     {
-        get => _header;
-        set => _header = value;
+        Header = header;
+        VLRs = vlrs ?? new List<LasVariableLengthRecord>();
+        OutputFile = lasFile;
+
+        //< Check that the 'Offset to Point Data' makes sense
+        var dataOffset = CalculateOffsetToPointData(Header, VLRs);
+        if (dataOffset != Header.OffsetToPointData)
+        {
+            Header.SetOffsetToPointData(dataOffset);
+        }
+
+        _streamWriter = new StreamWriter(File.Open(lasFile, FileMode.Create));
+        _binaryWriter = new BinaryWriter(_streamWriter.BaseStream);
     }
 
-    public LasWriter(string lasFile)
+    public ILasWriter Initialize()
     {
-        _StreamWriter = new StreamWriter(File.Open(lasFile, FileMode.Create));
-        _BinaryWriter = new BinaryWriter(_StreamWriter.BaseStream);
+        WriteHeader();
+        if (VLRs != null) WriteVLRs(VLRs);
+
+        return this;
     }
 
-    #region ILasWriter Members
-    public long Seek(int position)
+    /// <summary>
+    /// Calculate the 'actual' offset to point data given <see cref="ILasHeader"/> and optional set of <see cref="LasVariableLengthRecord"/>
+    /// </summary>
+    /// <param name="header">Output <see cref="ILasHeader"/> to be written</param>
+    /// <param name="vlrs">[Optional] Set of <see cref="LasVariableLengthRecord"/></param>
+    /// <returns></returns>
+    static ushort CalculateOffsetToPointData(ILasHeader header, IEnumerable<LasVariableLengthRecord>? vlrs = null)
+    {
+        ushort size = header.HeaderSize;
+
+        if (vlrs != null) size += (ushort)vlrs.Sum(x => x.TotalRecordLength);
+
+        return size;
+    }
+
+    /// <summary>
+    /// Seek the underlying binary output stream to the input position
+    /// </summary>
+    /// <param name="position">Position to set binary output stream to</param>
+    long Seek(int position)
     {
         if (position < 0) throw new ArgumentOutOfRangeException(nameof(position));
-        if (position > _BinaryWriter.BaseStream.Length) throw new ArgumentOutOfRangeException(nameof(position));
+        if (position > _binaryWriter.BaseStream.Length) throw new ArgumentOutOfRangeException(nameof(position));
 
-        return _BinaryWriter.Seek(position, SeekOrigin.Begin);
+        return _binaryWriter.Seek(position, SeekOrigin.Begin);
     }
 
-    public void WriteHeader()
+    /// <summary>
+    /// Output the <see cref="ILasWriter"/>'s current <see cref="ILasHeader"/> to the binary output stream
+    /// <para>NOTE: Will re-set the <see cref="ILasWriter"/>'s position to just before the Variable Length Record (VLR) block</para>
+    /// </summary>
+    void WriteHeader()
     {
-        Header.WriteToFile(_BinaryWriter);
+        Seek(0);
+        Header.WriteToFile(_binaryWriter);
     }
 
-    public void WriteHeader(ILasHeader header)
+    /// <summary>
+    /// Output the given set of <see cref="LasVariableLengthRecord"/> to the binary output stream
+    /// <para>NOTE: Will re-set the <see cref="ILasWriter"/>'s position to just before the point data block</para>
+    /// </summary>
+    /// <param name="vlrs"></param>
+    void WriteVLRs(IEnumerable<LasVariableLengthRecord> vlrs)
     {
-        _header = header;
-        WriteHeader();
+        if (Position < Header.HeaderSize) Seek(Header.HeaderSize);
+
+        foreach (var vlr in vlrs) vlr.WriteToFile(_binaryWriter);
     }
 
-    public void WriteVLR(ILasVariableLengthRecord vlr)
+    void CheckAgainstHeader(LasPoint point)
     {
-        if (Position != _header.HeaderSize) Seek(_header.HeaderSize);
-
-        vlr.WriteToFile(_BinaryWriter);
+        PointsWritten++;
+        Header.CheckExtrema(point.Position);
     }
 
-    public void WriteVLRs(IEnumerable<ILasVariableLengthRecord> vlrs)
+    public void WritePoint(LasPoint point)
     {
-        if (Position != _header.HeaderSize) Seek(_header.HeaderSize);
+        CheckAgainstHeader(point);
 
-        foreach (var vlr in vlrs) vlr.WriteToFile(_BinaryWriter);
+        var lpt = LasPointConverter.GetLasPointStruct(point, Header);
+        _binaryWriter.Write(GetBytes(lpt));
     }
-
-    public void WritePoint(ILasPoint point)
+    public void WritePoints(IEnumerable<LasPoint> points)
     {
-        throw new NotImplementedException();
+        foreach (var point in points) CheckAgainstHeader(point);
+
+        var structs = points.Select(p => LasPointConverter.GetLasPointStruct(p, Header));
+        _binaryWriter.Write(GetBytes(structs));
     }
 
-    public void WritePoints(IEnumerable<ILasPoint> points)
+    static byte[] GetBytes<T>(T input)
     {
-        throw new NotImplementedException();
+        if (input == null) throw new ArgumentNullException(nameof(input));
+
+        int length = Marshal.SizeOf(input);
+        IntPtr ptr = Marshal.AllocHGlobal(length);
+        byte[] myBuffer = new byte[length];
+
+        Marshal.StructureToPtr(input, ptr, true);
+        Marshal.Copy(ptr, myBuffer, 0, length);
+        Marshal.FreeHGlobal(ptr);
+
+        return myBuffer;
     }
 
-    public void WriteBytes(byte[] bytes)
+    static byte[] GetBytes<T>(IEnumerable<T> inputs)
     {
-        throw new NotImplementedException();
+        int structSize = Marshal.SizeOf(inputs.First());
+        int len = inputs.Count() * structSize;
+        byte[] arr = new byte[len];
+        IntPtr ptr = Marshal.AllocHGlobal(len);
+        for (int i = 0; i < inputs.Count(); i++)
+        {
+            Marshal.StructureToPtr(
+                inputs.ElementAt(i) ?? throw new NullReferenceException(),
+                ptr + i * structSize,
+                true);
+        }
+        Marshal.Copy(ptr, arr, 0, len);
+        Marshal.FreeHGlobal(ptr);
+        return arr;
     }
-    #endregion
-
-    #region Internal Methods
-
-    #endregion
 
     #region IDisposable
     protected virtual void Dispose(bool disposing)
     {
         if (!disposedValue)
         {
-            if (disposing) _StreamWriter.Dispose();
+            if (disposing)
+            {
+                //< Verify the point count matches what we actually wrote
+                if (Header.PointCount != PointsWritten)
+                {
+                    Header.SetPointCount(PointsWritten);
+                }
+                //< Re-write the header to ensure count & bounding boxes are legit
+                WriteHeader();
+                //< Dispose underlying stream
+                _streamWriter.Dispose();
+            }
 
             disposedValue = true;
         }

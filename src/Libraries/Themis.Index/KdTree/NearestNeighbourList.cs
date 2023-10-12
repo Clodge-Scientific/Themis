@@ -1,4 +1,4 @@
-﻿using Themis.Index.KdTree.TypeMath;
+﻿using Themis.Index.KdTree.Interfaces;
 
 namespace Themis.Index.KdTree;
 

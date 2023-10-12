@@ -19,8 +19,8 @@ public class LasVariableLengthRecordTests
         vlrA.SetUserID(userID);
         vlrB.SetUserID(userID.ToCharArray());
 
-        Assert.Equal(userID, vlrA.UserID);
-        Assert.Equal(userID, vlrB.UserID);
+        Assert.Equal(userID.ToCharArray(), vlrA.UserID);
+        Assert.Equal(userID.ToCharArray(), vlrB.UserID);
     }
 
     [Fact]
@@ -32,9 +32,9 @@ public class LasVariableLengthRecordTests
         var vlrA = new LasVariableLengthRecord().WithUserID(userID);
         var vlrB = new LasVariableLengthRecord().WithUserID(userID.ToCharArray());
 
-        Assert.Equal(userID, vlrA.UserID);
+        Assert.Equal(userID.ToCharArray(), vlrA.UserID);
         Assert.Equal(LasVariableLengthRecord.MaxUserIDLength, vlrA.UserID.Length);
-        Assert.Equal(userID, vlrB.UserID);
+        Assert.Equal(userID.ToCharArray(), vlrB.UserID);
         Assert.Equal(LasVariableLengthRecord.MaxUserIDLength, vlrB.UserID.Length);
     }
 
@@ -49,9 +49,9 @@ public class LasVariableLengthRecordTests
         vlrA.SetDescription(description);
         vlrB.SetDescription(description.ToCharArray());
 
-        Assert.Equal(description, vlrA.Description);
+        Assert.Equal(description.ToCharArray(), vlrA.Description);
         Assert.Equal(LasVariableLengthRecord.MaxDescriptionLength, vlrA.Description.Length);
-        Assert.Equal(description, vlrB.Description);
+        Assert.Equal(description.ToCharArray(), vlrB.Description);
         Assert.Equal(LasVariableLengthRecord.MaxDescriptionLength, vlrB.Description.Length);
     }
 
@@ -64,9 +64,9 @@ public class LasVariableLengthRecordTests
         var vlrA = new LasVariableLengthRecord().WithDescription(description);
         var vlrB = new LasVariableLengthRecord().WithDescription(description.ToCharArray());
 
-        Assert.Equal(description, vlrA.Description);
+        Assert.Equal(description.ToCharArray(), vlrA.Description);
         Assert.Equal(LasVariableLengthRecord.MaxDescriptionLength, vlrA.Description.Length);
-        Assert.Equal(description, vlrB.Description);
+        Assert.Equal(description.ToCharArray(), vlrB.Description);
         Assert.Equal(LasVariableLengthRecord.MaxDescriptionLength, vlrB.Description.Length);
     }
 

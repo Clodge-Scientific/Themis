@@ -6,7 +6,6 @@ using Xunit;
 using Assert = Xunit.Assert;
 
 using Themis.Index.KdTree;
-using Themis.Index.KdTree.TypeMath;
 
 namespace Themis.Index.Tests.KdTree;
 

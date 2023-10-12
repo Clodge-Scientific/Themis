@@ -1,4 +1,4 @@
-﻿namespace Themis.Index.KdTree.TypeMath;
+﻿namespace Themis.Index.KdTree;
 
 public class FloatMath : TypeMath<float>
 {

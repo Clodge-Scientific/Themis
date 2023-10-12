@@ -7,6 +7,7 @@ public class LasReader : ILasReader
     public bool EOF => _Stream.EOF;
     public ulong PointCount => Header.PointCount;
     public ILasHeader Header => _Stream.Header;
+    public IList<LasVariableLengthRecord> VLRs => _Stream.VLRs;
 
     private readonly IStreamHandler _Stream;
 
