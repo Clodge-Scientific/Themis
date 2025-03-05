@@ -10,7 +10,7 @@ public class LasHeader : ILasHeader
     /// <summary>
     /// The currently supported 'VersionMinor' flags - assuming a 'VersionMajor' of 1
     /// </summary>
-    public static readonly HashSet<int> SupportedVersionMinors = new() { 2, 4 };
+    public static readonly HashSet<int> SupportedVersionMinors = new() { 1, 2, 3, 4 };
 
     #region ILasHeader Fields & Properties
     public uint FileSignature { get; private set; } = Constants.LasHeaderSignature;
@@ -270,11 +270,14 @@ public class LasHeader : ILasHeader
         header.MaxZ = reader.ReadDouble();
         header.MinZ = reader.ReadDouble();
 
-        //< If we're just LAS 1.2 - we can return the header now
-        if (header.VersionMinor == 2) return header;
+        //< LAS 1.1 & 1.2 header ends here
+        if (header.VersionMinor <= 2) return header;
 
-        //< Otherwise - parse the remaining LAS 1.4 fields
         header.StartOfWaveformDataPacketRecord = reader.ReadUInt64();
+
+        //< LAS 1.3 header ends here
+        if (header.VersionMinor == 3) return header;
+
         header.StartOfFirstExtendedVLR = reader.ReadUInt64();
         header.NumExtendedVLRs = reader.ReadUInt32();
         header.NumPointRecords = reader.ReadUInt64();

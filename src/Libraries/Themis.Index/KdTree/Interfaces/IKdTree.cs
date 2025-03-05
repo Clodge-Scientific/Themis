@@ -78,7 +78,7 @@ public interface IKdTree<TKey, TValue> : IEnumerable<KdTreeNode<TKey, TValue>>
     /// <param name="point">Input IEnumerable&lt;<typeparamref name="TKey"/>&gt; HyperPoint to search around</param>
     /// <param name="radius">Scalar distance around input HyerPoint to search</param>
     /// <returns></returns>
-    IEnumerable<KdTreeNode<TKey, TValue>> RadialSearch(IEnumerable<TKey> point, TKey radius);
+    TValue[] RadialSearch(IEnumerable<TKey> point, TKey radius);
     /// <summary>
     /// Find and return all elements within the specified search distance up to a maximum count
     /// </summary>
@@ -86,12 +86,12 @@ public interface IKdTree<TKey, TValue> : IEnumerable<KdTreeNode<TKey, TValue>>
     /// <param name="radius">Scalar distance around input HyerPoint to search</param>
     /// <param name="count">Maximum count of points to return</param>
     /// <returns></returns>
-    IEnumerable<KdTreeNode<TKey, TValue>> RadialSearch(IEnumerable<TKey> point, TKey radius, int count);
+    TValue[] RadialSearch(IEnumerable<TKey> point, TKey radius, int count);
     /// <summary>
     /// Find and return the nearest neighbouring elements up to a maximum count
     /// </summary>
     /// <param name="point">Input IEnumerable&lt;<typeparamref name="TKey"/>&gt; HyperPoint to search around</param>
     /// <param name="count">Maximum count of points to return</param>
     /// <returns></returns>
-    IEnumerable<KdTreeNode<TKey, TValue>> GetNearestNeighbours(IEnumerable<TKey> point, int count = int.MaxValue);
+    TValue[] GetNearestNeighbours(IEnumerable<TKey> point, int count = int.MaxValue);
 }

@@ -3,24 +3,20 @@ using Themis.Index.KdTree.Interfaces;
 
 namespace Themis.Index.KdTree;
 
-public class KdTree<TKey, TValue> : IKdTree<TKey, TValue>
+public class KdTree<TKey, TValue>(
+    int dimensions,
+    ITypeMath<TKey> typeMath)
+    : IKdTree<TKey, TValue>
 {
     const int InitialDimension = -1;
 
-    public int Count { get; private set; }
-    public int Dimensions { get; }
+    public int Count { get; private set; } = 0;
+    public int Dimensions { get; } = dimensions;
 
     private KdTreeNode<TKey, TValue>? root = null;
 
-    public ITypeMath<TKey> TypeMath { get; }
+    public ITypeMath<TKey> TypeMath { get; } = typeMath;
     public AddDuplicateBehavior AddDuplicateBehavior { get; } = AddDuplicateBehavior.Error;
-
-    public KdTree(int dimensions, ITypeMath<TKey> typeMath)
-    {
-        this.Dimensions = dimensions;
-        this.TypeMath = typeMath;
-        this.Count = 0;
-    }
 
     public KdTree(int dimensions, ITypeMath<TKey> typeMath, AddDuplicateBehavior addDuplicateBehavior)
         : this(dimensions, typeMath)
@@ -346,22 +342,24 @@ public class KdTree<TKey, TValue> : IKdTree<TKey, TValue>
     #endregion
 
     #region IKdTree<TKey, TValue> Radial & Nearest Neighbour Searches
-    public IEnumerable<KdTreeNode<TKey, TValue>> RadialSearch(IEnumerable<TKey> point, TKey radius)
+    public TValue[] RadialSearch(IEnumerable<TKey> point, TKey radius)
     {
         var nearestNeighs = new NearestNeighbourList<KdTreeNode<TKey, TValue>, TKey>(TypeMath);
-        return RadialSearch(point.ToArray(), radius, nearestNeighs);
+
+        return RadialSearch([.. point], radius, nearestNeighs);
     }
 
-    public IEnumerable<KdTreeNode<TKey, TValue>> RadialSearch(IEnumerable<TKey> point, TKey radius, int count)
+    public TValue[] RadialSearch(IEnumerable<TKey> point, TKey radius, int count)
     {
         var nearestNeighs = new NearestNeighbourList<KdTreeNode<TKey, TValue>, TKey>(TypeMath, count);
-        return RadialSearch(point.ToArray(), radius, nearestNeighs);
+
+        return RadialSearch([.. point], radius, nearestNeighs);
     }
 
-    IEnumerable<KdTreeNode<TKey, TValue>> RadialSearch(TKey[] point, TKey radius,
-                                                        NearestNeighbourList<KdTreeNode<TKey, TValue>, TKey> nearestNeighs)
+    TValue[] RadialSearch(TKey[] point, TKey radius,
+        NearestNeighbourList<KdTreeNode<TKey, TValue>, TKey> nearestNeighs)
     {
-        if (root == null) return Array.Empty<KdTreeNode<TKey, TValue>>();
+        if (root == null) return [];
 
         AddNearestNeighbours(root, point, InfiniteHyperRect(), 0, nearestNeighs, TypeMath.Multiply(radius, radius));
 
@@ -423,26 +421,26 @@ public class KdTree<TKey, TValue> : IKdTree<TKey, TValue>
         }
     }
 
-    static KdTreeNode<TKey, TValue>[] GetNearestNeighbourArray(NearestNeighbourList<KdTreeNode<TKey, TValue>, TKey> nearestNeighs)
+    static TValue[] GetNearestNeighbourArray(NearestNeighbourList<KdTreeNode<TKey, TValue>, TKey> nearestNeighs)
     {
         int count = nearestNeighs.Count;
         var neighArray = new KdTreeNode<TKey, TValue>[count];
 
         foreach (int i in Enumerable.Range(0, count)) { neighArray[count - i - 1] = nearestNeighs.RemoveFurthest(); }
 
-        return neighArray;
+        return [.. neighArray.Select(x => x.Value)];
     }
 
-    public IEnumerable<KdTreeNode<TKey, TValue>> GetNearestNeighbours(IEnumerable<TKey> point, int count = int.MaxValue)
+    public TValue[] GetNearestNeighbours(IEnumerable<TKey> point, int count = int.MaxValue)
     {
         if (count < 0) throw new ArgumentException("Number of neighbours cannot be negative!");
-        if (count == 0 || root == null) return Array.Empty<KdTreeNode<TKey, TValue>>();
+        if (count == 0 || root == null) return [];
         if (count > Count) count = Count;
 
         var nearestNeighs = new NearestNeighbourList<KdTreeNode<TKey, TValue>, TKey>(TypeMath, count);
         var rect = InfiniteHyperRect();
 
-        AddNearestNeighbours(root, point.ToArray(), rect, 0, nearestNeighs, TypeMath.MaxValue);
+        AddNearestNeighbours(root, [.. point], rect, 0, nearestNeighs, TypeMath.MaxValue);
 
         return GetNearestNeighbourArray(nearestNeighs);
     }

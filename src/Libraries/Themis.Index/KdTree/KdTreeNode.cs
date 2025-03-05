@@ -2,23 +2,18 @@
 
 namespace Themis.Index.KdTree;
 
-public class KdTreeNode<TKey, TValue> : IKdTreeNode<TKey, TValue>
+public class KdTreeNode<TKey, TValue>(
+    IEnumerable<TKey> point,
+    TValue value)
+    : IKdTreeNode<TKey, TValue>
 {
-    public TKey[]? Point { get; set; }
-    public TValue? Value { get; set; } = default;
+    public TKey[] Point { get; set; } = [.. point];
+    public TValue Value { get; set; } = value;
 
     public bool IsLeaf => LeftChild == null && RightChild == null;
 
     internal KdTreeNode<TKey, TValue>? LeftChild = null;
     internal KdTreeNode<TKey, TValue>? RightChild = null;
-
-    public KdTreeNode() { }
-
-    public KdTreeNode(IEnumerable<TKey> point, TValue value)
-    {
-        Point = point.ToArray();
-        Value = value;
-    }
 
     internal KdTreeNode<TKey, TValue>? this[int compare]
     {

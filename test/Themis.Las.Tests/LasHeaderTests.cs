@@ -45,7 +45,6 @@ public class LasHeaderTests
         byte ExpectedMinor = 2;
 
         byte BadMajor = 2;
-        byte BadMinor = 3;
 
         LasHeader Header = new();
         Header.SetVersion(ExpectedMajor, ExpectedMinor);
@@ -54,7 +53,6 @@ public class LasHeaderTests
         Assert.Equal(ExpectedMinor, Header.VersionMinor);
 
         Assert.Throws<NotImplementedException>(() => Header.SetVersion(BadMajor, ExpectedMinor));
-        Assert.Throws<NotImplementedException>(() => Header.SetVersion(ExpectedMajor, BadMinor));
     }
 
     [Fact]

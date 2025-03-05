@@ -256,7 +256,7 @@ public class KdTreeTests
 
             foreach (int index in Enumerable.Range(0, ActualNeighs.Length))
             {
-                Assert.Equal(ExpectedNeighs[index].Address, ActualNeighs[index].Value);
+                Assert.Equal(ExpectedNeighs[index].Address, ActualNeighs[index]);
             }
         }
     }
@@ -277,7 +277,7 @@ public class KdTreeTests
 
             foreach (int index in Enumerable.Range(0, ActualNeighs.Length))
             {
-                Assert.Equal(ExpectedNeighs[index].Address, ActualNeighs[index].Value);
+                Assert.Equal(ExpectedNeighs[index].Address, ActualNeighs[index]);
             }
         }
     }
