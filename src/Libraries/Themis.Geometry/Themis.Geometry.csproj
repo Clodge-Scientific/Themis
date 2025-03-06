@@ -7,9 +7,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/Clodge-Scientific/Themis/tree/main</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2023.10.12.0</AssemblyVersion>
-    <FileVersion>2023.10.12.0</FileVersion>
-    <Version>2023.10.12</Version>
+    <AssemblyVersion>2025.03.05.0</AssemblyVersion>
+    <FileVersion>2025.03.05.0</FileVersion>
+    <Version>2025.03.05</Version>
     <Authors>Graham Clodge</Authors>
     <PackageTags>geospatial,geometry</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>

@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>2023.10.12</Version>
+    <Version>2025.03.05</Version>
     <Authors>Graham Clodge</Authors>
     <Description>.NET implementations of common spatial indexing structures such as binary space partioning trees. </Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
